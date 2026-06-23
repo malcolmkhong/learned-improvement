@@ -1,0 +1,29 @@
+{
+  "name": "continuous-improvement-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Workspace root for the continuous-improvement monorepo (M0 scaffold).",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/cli",
+    "packages/adapters/*"
+  ],
+  "scripts": {
+    "build": "pnpm -r build",
+    "test": "pnpm -r test",
+    "lint": "pnpm -r lint",
+    "doctor": "node packages/cli/dist/bin/ci.js doctor",
+    "ci:check-circular": "node scripts/verify_no_circular_imports.mjs"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0",
+    "eslint": "^9.0.0",
+    "prettier": "^3.3.0"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
