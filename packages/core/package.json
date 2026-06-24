@@ -7,8 +7,11 @@
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "files": [
-    "dist",
-    "templates"
+    "dist/**/*.js",
+    "dist/**/*.js.map",
+    "dist/**/*.d.ts",
+    "dist/**/*.d.ts.map",
+    "templates/**/*.md"
   ],
   "exports": {
     ".": "./dist/index.js",

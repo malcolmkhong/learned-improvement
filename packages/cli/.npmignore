@@ -1,0 +1,19 @@
+# .npmignore for continuous-improvement CLI
+*.test.ts
+*.test.js
+*.test.d.ts
+*.test.d.ts.map
+**/*.test.ts
+**/*.test.js
+**/__tests__/**
+**/__mocks__/**
+
+vitest.config.ts
+vitest.config.js
+coverage/
+.eslintrc*
+.prettierrc*
+tsconfig.json
+*.tsbuildinfo
+
+src/

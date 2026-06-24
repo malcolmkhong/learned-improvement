@@ -1,0 +1,13 @@
+# .npmignore for @continuous-improvement/adapter-stub
+*.test.ts
+*.test.js
+*.test.d.ts
+*.test.d.ts.map
+**/*.test.ts
+**/*.test.js
+
+vitest.config.ts
+coverage/
+.tsbuildinfo
+
+src/

@@ -1,0 +1,28 @@
+# .npmignore for continuous-improvement-core
+# Defense-in-depth: even though package.json "files" is explicit,
+# these patterns are also excluded from the npm tarball.
+
+# Tests
+*.test.ts
+*.test.js
+*.test.d.ts
+*.test.d.ts.map
+**/*.test.ts
+**/*.test.js
+**/__tests__/**
+**/__mocks__/**
+
+# Test config
+vitest.config.ts
+vitest.config.js
+coverage/
+.nyc_output/
+
+# Dev-only files
+.eslintrc*
+.prettierrc*
+tsconfig.json
+*.tsbuildinfo
+
+# Source files (build emits dist/, source is for editors only)
+src/
