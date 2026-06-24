@@ -13,16 +13,22 @@ I want to install continuous-improvement, a self-learning engine for AI
 coding agents. Please:
 
 1. Check that Node.js 20+ is installed: `node --version`
-2. Install the core CLI globally: `npm install -g continuous-improvement`
-3. Verify the install: `ci --help` should print the help screen.
-4. Install the adapter for the agent I'm using:
+2. Check that pnpm is installed: `pnpm --version` (install with
+   `npm install -g pnpm` if missing)
+3. Clone the repo:
+   `git clone https://github.com/malcolmkhong/learned-improvement.git && cd learned-improvement`
+4. Install deps: `pnpm install`
+5. Build all packages: `pnpm -r build`
+6. Link the binary globally: `cd packages/cli && npm link` (then `cd ~`)
+7. Verify the install: `ci --help` should print 12 sub-commands.
+8. Install the adapter for the agent I'm using (V0.2+):
    - Claude Code: `npm install -g @continuous-improvement/adapter-claudecode`
-   - OpenCode:   `npm install -g @continuous-improvement/adapter-opencode`
-   - Aider:      `npm install -g @continuous-improvement/adapter-aider`
-   - Roo:        `npm install -g @continuous-improvement/adapter-roo`
-5. Tell me the exact command to run my agent through `ci`, e.g.
-   `ci run claudecode <my-file>`.
-6. Show me `ci doctor` so I can verify everything is wired up.
+   - OpenCode:    `npm install -g @continuous-improvement/adapter-opencode`
+   - Aider:       `npm install -g @continuous-improvement/adapter-aider`
+   - Roo:         `npm install -g @continuous-improvement/adapter-roo`
+9. Show me `ci doctor` so I can verify all 9 production-readiness checks pass.
+10. Show me `ci classify modify_owned_file --path packages/core/src/x.ts`
+    so I can see the Risk Classifier return tier="medium" and autoApply=true.
 
 Do not start coding yet. Just set up the tool and report back.
 ```
@@ -113,15 +119,37 @@ The learning is too aggressive (or too quiet). Please tune it:
    - `learning.window_hours` (default 24)
    - `learning.min_sessions` (default 2)
    - `learning.auto_promote_confidence` (default "medium")
-   - `learning.ask_before_activating` (default "always")
-3. Example: `ci config set learning.min_occurrences 2`
+3. Edit ~/.ci/config.toml directly and save (V0.2 will add `ci config set`).
 4. `ci config show learning` again to confirm.
 5. The next daemon cycle will pick up the new value automatically.
 ```
 
 ---
 
-## 🤝 7. "Add another agent" prompt (paste this when you switch tools)
+## 🔒 7. "Tighten autonomy" prompt (paste this when you want more control)
+
+```
+ci is being too aggressive. I want it to ask me more. Please:
+
+1. `ci config show autonomy` — show current autonomy settings.
+2. Tighten them:
+   - Set `autonomy.allow_medium = false`  (only low-risk auto-applies)
+   - Keep `autonomy.allow_high = false`
+   - Keep `autonomy.allow_critical = false`
+3. Edit ~/.ci/config.toml and save.
+4. Confirm with `ci config show autonomy`.
+5. From now on, ci will only auto-apply low-risk actions; everything
+   medium and above will be queued for my review.
+
+The reverse (loosening) is `ci autonomy set allow_medium true` — but
+NEVER set `allow_critical = true` unless you fully understand the seven
+hard-stop categories (financial, security, privacy, data_loss,
+infrastructure, project_break, legal).
+```
+
+---
+
+## 🤝 8. "Add another agent" prompt (paste this when you switch tools)
 
 ```
 I'm switching to a different AI agent. Please:
@@ -138,4 +166,4 @@ I'm switching to a different AI agent. Please:
 ---
 
 > **Tip:** Save these prompts as snippets in your editor. Most users only
-> need #1 (once) and #2 (every session).
+> need #1 (once), #2 (every session), and #7 (once you trust the tool).
